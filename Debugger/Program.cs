@@ -3,40 +3,38 @@ using System.Collections.Generic;
 
 namespace Debugger
 {
-    abstract class Human
+    using System;
+    using System.Collections.Generic;
+
+    public abstract class Human
     {
         public string Name { get; set; }
-
-        public abstract void DisplayDetails();
+        public abstract string DailyRoutine();
     }
 
     class Doctor : Human
     {
-        public string Specialty { get; set; }
-
-        public override void DisplayDetails()
+        public override string DailyRoutine()
         {
-            Console.WriteLine($"Doctor {Name}, specializes in {Specialty}.");
+            return $"{Name} checks the patient list, consults patients, and writes prescriptions.";
         }
     }
 
     class Engineer : Human
     {
-        public string Field { get; set; }
-
-        public override void DisplayDetails()
+        public override string DailyRoutine()
         {
-            Console.WriteLine($"Engineer {Name}, works in {Field}.");
+            return $"{Name} reviews blueprints, attends project meetings, and drafts designs.";
         }
     }
 
     class Artist : Human
     {
-        public string ArtForm { get; set; }
+        public string Medium { get; set; }  // e.g. "paint", "clay", "digital tools"
 
-        public override void DisplayDetails()
+        public override string DailyRoutine()
         {
-            Console.WriteLine($"Artist {Name}, creates {ArtForm}.");
+            return $"{Name} gets inspired by using {Medium}, creates artwork, and attends art showcases.";
         }
     }
 
@@ -44,17 +42,36 @@ namespace Debugger
     {
         static void Main()
         {
-            List<Human> humans = new List<Human>
-            {
-                new Doctor { Name = "Dr. Smith", Specialty = "Cardiology" },
-                new Engineer { Field = "Software Engineering" }, 
-                new Artist { Name = "Bob", ArtForm = "Dancing" },
-            };
+            var humans = new List<Human>
+        {
+            new Doctor { Name = "Dr. Smith" },
+            new Engineer { Name = "Diana" },
+            new Artist { Name = "Leonardo" }
+        };
 
+
+            List<Human> alsoHumans = new List<Human>();
+            Doctor doctor = new Doctor();
+            doctor.Name = "Franky";
+            alsoHumans.Add(doctor);
+            Engineer engo = new Engineer();
+            engo.Name = "Felicia";
+            Artist artist = new Artist();
+            artist.Name = "John";
+            alsoHumans.Add(artist);
+
+            Console.WriteLine("Daily Routines:");
             foreach (var human in humans)
             {
-                human.DisplayDetails();
+                Console.WriteLine(human.DailyRoutine());
             }
+
+            foreach (Human humano1 in alsoHumans)
+            {
+                Console.WriteLine(humano1.DailyRoutine());
+            }
+            //}
         }
+
     }
 }
